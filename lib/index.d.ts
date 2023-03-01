@@ -1,9 +1,6 @@
 export * from './components/Provider/EmailEditorProvider';
 export { BlockAvatarWrapper } from './components/wrapper';
 export { EmailEditor } from './components/EmailEditor';
-export { EditEmailPreview } from './components/EmailEditor/components/EditEmailPreview';
-export { MobileEmailPreview } from './components/EmailEditor/components/MobileEmailPreview';
-export { DesktopEmailPreview } from './components/EmailEditor/components/DesktopEmailPreview';
 export * from './utils/index';
 export { useActiveTab } from './hooks/useActiveTab';
 export { useEditorProps } from './hooks/useEditorProps';

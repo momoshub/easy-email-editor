@@ -1,5 +1,7 @@
+import { BasicType } from 'easy-email-core';
+import { cloneDeep, debounce, get } from 'lodash';
+import { useCallback, useContext } from 'react';
 import {
-  BasicType,
   IBlockData,
   getIndexByIdx,
   getPageIdx,
@@ -9,8 +11,6 @@ import {
   BlockManager,
   createBlockDataByType,
 } from 'easy-email-core';
-import { cloneDeep, debounce, get } from 'lodash';
-import { useCallback, useContext } from 'react';
 
 import { useEditorContext } from './useEditorContext';
 import { RecordContext } from '@/components/Provider/RecordProvider';

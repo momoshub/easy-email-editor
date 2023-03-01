@@ -1,6 +1,5 @@
-import { IBlockData } from 'easy-email-core';
+import { IBlockData, IPage } from 'easy-email-core';
 import React, { useMemo } from 'react';
-
 export interface CollectedBlock {
   label: string;
   helpText: string;

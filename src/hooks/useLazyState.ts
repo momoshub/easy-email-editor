@@ -1,5 +1,7 @@
 import { debounce } from 'lodash';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 export function useLazyState<T>(state: T, debounceTime: number) {
   const [lazyState, setLazyState] = useState<T>(state);

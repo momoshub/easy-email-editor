@@ -2,7 +2,8 @@ import { EventManager } from '@';
 import { EventType } from '@/utils/EventManager';
 import { getPageIdx } from 'easy-email-core';
 import { isFunction } from 'lodash';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
+import { useCallback } from 'react';
 
 export enum ActiveTabKeys {
   EDIT = 'EDIT',

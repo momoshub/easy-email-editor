@@ -1,4 +1,7 @@
-import { EditorPropsContext, PropsProviderProps } from '@/components/Provider/PropsProvider';
+import {
+  EditorPropsContext,
+  PropsProviderProps,
+} from '@/components/Provider/PropsProvider';
 import { useContext } from 'react';
 
 export function useEditorProps<T extends PropsProviderProps>(): T & {

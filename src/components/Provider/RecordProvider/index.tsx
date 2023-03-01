@@ -2,7 +2,6 @@ import { IEmailTemplate } from '@/typings';
 import { useForm, useFormState } from 'react-final-form';
 import { cloneDeep, isEqual } from 'lodash';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useRefState } from '@/hooks/useRefState';
 
 const MAX_RECORD_SIZE = 50;
 
@@ -24,18 +23,19 @@ export const RecordContext = React.createContext<{
   undoable: false,
 });
 
-export const RecordProvider: React.FC<{}> = props => {
+export const RecordProvider: React.FC<{}> = (props) => {
   const formState = useFormState<IEmailTemplate>();
   const [data, setData] = useState<Array<IEmailTemplate>>([]);
   const [index, setIndex] = useState(-1);
-  const indexRef = useRefState(index);
 
   const statusRef = useRef<RecordStatus>(undefined);
   const currentData = useRef<IEmailTemplate>();
 
-  if (index >= 0 && data.length > 0) {
-    currentData.current = data[index];
-  }
+  useEffect(() => {
+    if (index >= 0 && data.length > 0) {
+      currentData.current = data[index];
+    }
+  }, [data, index]);
 
   const form = useForm();
 
@@ -43,7 +43,11 @@ export const RecordProvider: React.FC<{}> = props => {
     return {
       records: data,
       redo: () => {
-        const nextIndex = Math.min(MAX_RECORD_SIZE - 1, index + 1, data.length - 1);
+        const nextIndex = Math.min(
+          MAX_RECORD_SIZE - 1,
+          index + 1,
+          data.length - 1
+        );
         statusRef.current = 'redo';
         setIndex(nextIndex);
         form.reset(data[nextIndex]);
@@ -79,16 +83,19 @@ export const RecordProvider: React.FC<{}> = props => {
     if (isChanged) {
       currentData.current = formState.values;
       statusRef.current = 'add';
-      setData(oldData => {
-        const list = oldData.slice(0, indexRef.current + 1);
-
-        const newData = [...list, cloneDeep(formState.values)].slice(-MAX_RECORD_SIZE);
-
+      setData((oldData) => {
+        const newData = [...oldData, cloneDeep(formState.values)].slice(
+          -MAX_RECORD_SIZE
+        );
         return newData;
       });
-      setIndex(Math.min(indexRef.current + 1, MAX_RECORD_SIZE - 1));
+      setIndex((i) => Math.min(i + 1, MAX_RECORD_SIZE - 1));
     }
-  }, [formState, indexRef]);
+  }, [formState]);
 
-  return <RecordContext.Provider value={value}>{props.children}</RecordContext.Provider>;
+  return (
+    <RecordContext.Provider value={value}>
+      {props.children}
+    </RecordContext.Provider>
+  );
 };

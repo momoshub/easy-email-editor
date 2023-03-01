@@ -1,3 +1,4 @@
+import { BlockType } from 'easy-email-core';
 import React, { useState } from 'react';
 
 export interface HoverIdxState {
