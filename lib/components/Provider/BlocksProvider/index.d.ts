@@ -16,4 +16,6 @@ export declare const BlocksContext: React.Context<{
     activeTab: ActiveTabKeys;
     setActiveTab: React.Dispatch<React.SetStateAction<ActiveTabKeys>>;
 }>;
-export declare const BlocksProvider: React.FC<{}>;
+export declare const BlocksProvider: React.FC<{
+    defaultActiveTab?: ActiveTabKeys;
+}>;
