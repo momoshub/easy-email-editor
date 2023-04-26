@@ -21,6 +21,7 @@ export const BlocksContext = React.createContext<{
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
   activeTab: ActiveTabKeys;
   setActiveTab: React.Dispatch<React.SetStateAction<ActiveTabKeys>>;
+  isPreview?: boolean;
 }>({
   initialized: false,
   setInitialized: () => {},
@@ -32,9 +33,13 @@ export const BlocksContext = React.createContext<{
   setCollapsed: () => {},
   activeTab: ActiveTabKeys.EDIT,
   setActiveTab: () => {},
+  isPreview: false,
 });
 
-export const BlocksProvider: React.FC<{ defaultActiveTab?: ActiveTabKeys }> = props => {
+export const BlocksProvider: React.FC<{
+  defaultActiveTab?: ActiveTabKeys;
+  isPreview?: boolean;
+}> = props => {
   const [focusIdx, setFocusIdx] = useState(getPageIdx());
   const [dragEnabled, setDragEnabled] = useState(false);
   const [initialized, setInitialized] = useState(false);
@@ -82,6 +87,7 @@ export const BlocksProvider: React.FC<{ defaultActiveTab?: ActiveTabKeys }> = pr
         setCollapsed,
         activeTab,
         setActiveTab: onChangeTab,
+        isPreview: props.isPreview,
       }}
     >
       {props.children}

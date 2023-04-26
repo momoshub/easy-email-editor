@@ -23,6 +23,7 @@ export interface EmailEditorProviderProps<T extends IEmailTemplate = any>
   onSubmit?: Config<IEmailTemplate, Partial<IEmailTemplate>>['onSubmit'];
   validationSchema?: Config<IEmailTemplate, Partial<IEmailTemplate>>['validate'];
   defaultActiveTab?: ActiveTabKeys;
+  isPreview?: boolean;
 }
 
 export const EmailEditorProvider = <T extends any>(
@@ -34,6 +35,7 @@ export const EmailEditorProvider = <T extends any>(
     onSubmit = () => {},
     validationSchema,
     defaultActiveTab,
+    isPreview,
   } = props;
 
   const initialValues = useMemo(() => {
@@ -61,7 +63,10 @@ export const EmailEditorProvider = <T extends any>(
             <LanguageProvider locale={props.locale}>
               <PreviewEmailProvider>
                 <RecordProvider>
-                  <BlocksProvider defaultActiveTab={defaultActiveTab}>
+                  <BlocksProvider
+                    defaultActiveTab={defaultActiveTab}
+                    isPreview={isPreview}
+                  >
                     <HoverIdxProvider>
                       <ScrollProvider>
                         <FocusBlockLayoutProvider>

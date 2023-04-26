@@ -1,10 +1,10 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useContext } from 'react';
 import { Stack } from '../UI/Stack';
 import { ToolsPanel } from './components/ToolsPanel';
 import { createPortal } from 'react-dom';
 import { EASY_EMAIL_EDITOR_ID, FIXED_CONTAINER_ID } from '@/constants';
 import { useActiveTab } from '@/hooks/useActiveTab';
-import { ActiveTabKeys } from '../Provider/BlocksProvider';
+import { ActiveTabKeys, BlocksContext } from '../Provider/BlocksProvider';
 import { DesktopEmailPreview } from './components/DesktopEmailPreview';
 import { MobileEmailPreview } from './components/MobileEmailPreview';
 import { EditEmailPreview } from './components/EditEmailPreview';
@@ -24,6 +24,7 @@ type EmailEditorProps = {
 export const EmailEditor = ({ extraTop }: EmailEditorProps) => {
   const { height: containerHeight } = useEditorProps();
   const { setActiveTab, activeTab } = useActiveTab();
+  const { isPreview } = useContext(BlocksContext);
 
   const fixedContainer = useMemo(() => {
     return createPortal(<div id={FIXED_CONTAINER_ID} />, document.body);
@@ -58,20 +59,22 @@ export const EmailEditor = ({ extraTop }: EmailEditorProps) => {
           onBeforeChange={onBeforeChangeTab}
           onChange={onChangeTab}
           style={{ height: '100%', width: '100%' }}
-          tabBarExtraContent={<ToolsPanel />}
+          tabBarExtraContent={isPreview ? null : <ToolsPanel />}
         >
-          <TabPane
-            style={{ height: 'calc(100% - 50px)' }}
-            tab={
-              <Stack spacing='tight'>
-                <IconFont iconName='icon-editor' />
-              </Stack>
-            }
-            key={ActiveTabKeys.EDIT}
-          >
-            {extraTop}
-            <EditEmailPreview />
-          </TabPane>
+          {!isPreview && (
+            <TabPane
+              style={{ height: 'calc(100% - 50px)' }}
+              tab={
+                <Stack spacing='tight'>
+                  <IconFont iconName='icon-editor' />
+                </Stack>
+              }
+              key={ActiveTabKeys.EDIT}
+            >
+              {extraTop}
+              <EditEmailPreview />
+            </TabPane>
+          )}
           <TabPane
             style={{ height: 'calc(100% - 50px)' }}
             tab={
@@ -106,6 +109,7 @@ export const EmailEditor = ({ extraTop }: EmailEditorProps) => {
       onBeforeChangeTab,
       onChangeTab,
       extraTop,
+      isPreview,
     ],
   );
 };

@@ -15,7 +15,9 @@ export declare const BlocksContext: React.Context<{
     setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
     activeTab: ActiveTabKeys;
     setActiveTab: React.Dispatch<React.SetStateAction<ActiveTabKeys>>;
+    isPreview?: boolean | undefined;
 }>;
 export declare const BlocksProvider: React.FC<{
     defaultActiveTab?: ActiveTabKeys;
+    isPreview?: boolean;
 }>;
