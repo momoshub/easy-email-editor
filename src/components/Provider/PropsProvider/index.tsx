@@ -46,6 +46,8 @@ export interface PropsProviderProps {
   ) => string | Promise<string>;
   enabledLogic?: boolean;
   locale?: Record<string, string>;
+  jsonReadOnly?: boolean;
+  mjmlReadOnly?: boolean;
 }
 
 const defaultMergeTagGenerate = (m: string) => `{{${m}}}`;
@@ -64,6 +66,8 @@ export const EditorPropsContext = React.createContext<
   dashed: true,
   mergeTagGenerate: defaultMergeTagGenerate,
   enabledLogic: false,
+  jsonReadOnly: false,
+  mjmlReadOnly: false,
 });
 
 export const PropsProvider: React.FC<PropsProviderProps> = props => {
