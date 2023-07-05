@@ -47,6 +47,8 @@ export interface PropsProviderProps {
     onBeforePreview?: (html: string, mergeTags: PropsProviderProps['previewInjectData'] | PropsProviderProps['mergeTags']) => string | Promise<string>;
     enabledLogic?: boolean;
     locale?: Record<string, string>;
+    jsonReadOnly?: boolean;
+    mjmlReadOnly?: boolean;
 }
 export declare const EditorPropsContext: React.Context<PropsProviderProps & {
     mergeTagGenerate: Required<PropsProviderProps['mergeTagGenerate']>;

@@ -24,6 +24,8 @@ export interface EmailEditorProviderProps<T extends IEmailTemplate = any>
   validationSchema?: Config<IEmailTemplate, Partial<IEmailTemplate>>['validate'];
   defaultActiveTab?: ActiveTabKeys;
   isPreview?: boolean;
+  jsonReadOnly?: boolean;
+  mjmlReadOnly?: boolean;
 }
 
 export const EmailEditorProvider = <T extends any>(
